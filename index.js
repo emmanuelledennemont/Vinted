@@ -1,15 +1,17 @@
 const express = require("express");
+const cors = require("cors");
 const formidable = require("express-formidable");
 const mongoose = require("mongoose");
 const cloudinary = require("cloudinary").v2;
 require("dotenv").config();
-const cors = require("cors");
+
 
 // Je suis dans /route/user.js
 
 const app = express();
-app.use(formidable());
 app.use(cors());
+app.use(formidable());
+
 
 mongoose.connect(process.env.MONGODB_URI);
 
