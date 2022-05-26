@@ -2,19 +2,22 @@ const express = require("express");
 const formidable = require("express-formidable");
 const mongoose = require("mongoose");
 const cloudinary = require("cloudinary").v2;
+require("dotenv").config();
+const cors = require("cors");
 
 // Je suis dans /route/user.js
 
 const app = express();
 app.use(formidable());
+app.use(cors());
 
-mongoose.connect("mongodb://localhost/vinted");
+mongoose.connect(process.env.MONGODB_URI);
 
 
 cloudinary.config({
-  cloud_name: "dpd6msaux",
-  api_key: "993446121382641",
-  api_secret: "L2Bu1daZVUzuJ07_ir--PJbcBCU",
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
 
@@ -31,6 +34,6 @@ app.all("*", (req, res) => {
   res.status(404).json("Route introuvable");
 });
 
-app.listen(3000, () => {
+app.listen(process.env.PORT , () => {
   console.log("Server started");
 });
